@@ -4,7 +4,6 @@ import com.example.sweater.domain.Message;
 import com.example.sweater.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +42,17 @@ public class GreetingsController {
     @PostMapping("filter")
     public String filter(@RequestParam String filter, Map<String,Object> model) {
         if (filter != null && filter != "") model.put("messages", messageRepo.findByTag(filter));
+        else model.put("messages", messageRepo.findAll());
+
+        return "main";
+    }
+
+    @PostMapping("deleteByTag")
+    public String deleteFromDatabase(@RequestParam String deleteByTag, Map<String,Object> model) {
+        if (deleteByTag != null && deleteByTag != "") {
+            messageRepo.deleteByTag(deleteByTag);
+            model.put("messages", messageRepo.findAll());
+        }
         else model.put("messages", messageRepo.findAll());
 
         return "main";
