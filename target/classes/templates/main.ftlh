@@ -2,8 +2,11 @@
 <#import "parts/login.ftlh" as l>
 
 <@c.page>
-
 <@l.logout/>
+
+<div>
+    <span><a href="/user"> Перейти на страницу админа </a></span>
+</div>
 
 <div>
     <form method="post">
